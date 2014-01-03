@@ -2,7 +2,6 @@ import json
 from collections import namedtuple
 from notation import note_freqs
 from pippi import dsp
-from itertools import chain
 
 OUTPATH = 'out'
 NoteSpec = namedtuple('NoteSpec', ['freq', 'env', 'amp', 'duration'])
@@ -29,7 +28,5 @@ def parse_note_spec(ns_str):
     return NoteSpec(note_freqs[rawvals[0]], rawvals[1], float(rawvals[2]), int(rawvals[3]))
 
 def create_sequence(note_specs):
-    print note_specs
-    print type(note_specs[0].duration)
     return "".join([dsp.env(dsp.tone(dsp.stf(ns.duration), ns.freq, amp=ns.amp), ns.env) for ns in note_specs])
 
