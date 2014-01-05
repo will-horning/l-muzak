@@ -30,30 +30,27 @@ class LSystem():
             t += w
 
     def A(self):
-        env = Adsr(attack=0.1, decay=0.2, sustain=0.5, release=0.1, dur=1, mul=0.5)
-        sin = Sine(freq=[note_freqs['A4'],note_freqs['A4']], mul=env).out()
-        env.play()
+        t = CosTable([(0,0), (100,1), (1000,.25), (8191,0)])
+        a = Osc(table=t, freq=1, mul=.25)
+        b = SineLoop(freq=[note_freqs['A4'],note_freqs['A4']], feedback=0.05, mul=a).out()
         time.sleep(1.0)
-        env.stop()
-        sin.stop()
+        b.stop()
         time.sleep(0.1)
 
     def B(self):    
-        env = Adsr(attack=0.1, decay=0.2, sustain=0.5, release=0.1, dur=0.5, mul=0.5)
-        sin = Sine(freq=[note_freqs['Bb4'],note_freqs['Bb4']], mul=env).out()
-        env.play()
-        time.sleep(0.5)
-        env.stop()
-        sin.stop()
+        t = CosTable([(0,0), (50,1), (1000,.25), (8191,0)])
+        a = Osc(table=t, freq=0.5, mul=.25)
+        b = SineLoop(freq=[note_freqs['Bb4'],note_freqs['Bb4']], feedback=0.05, mul=a).out()
+        time.sleep(2.0)
+        b.stop()
         time.sleep(0.1)
 
     def C(self):
-        env = Adsr(attack=0.1, decay=0.2, sustain=0.5, release=0.1, dur=1, mul=0.5)
-        sin = Sine(freq=[note_freqs['C4'],note_freqs['C4']], mul=env).out()
-        env.play()
-        time.sleep(1.0)
-        env.stop()
-        sin.stop()
+        t = CosTable([(0,0), (100,1), (1000,.25), (8191,0)])
+        a = Osc(table=t, freq=2, mul=.25)
+        b = SineLoop(freq=[note_freqs['C4'],note_freqs['C4']], feedback=0.05, mul=a).out()
+        time.sleep(0.5)
+        b.stop()
         time.sleep(0.1)
 
 
