@@ -9,8 +9,10 @@ class FugueInGMinor(LSystem):
 						'B': [['A', 0.75], ['B D', 0.25]]}
 
 	def base_tone2(self, duration, note_name):
-		env = Adsr(attack=duration/10.0, decay=duration/5.0, sustain=0.8, release=0.2, dur=duration, mul=0.5)
 		f = note_freqs[note_name]
+		t = CosTable([(0,0), (100,1), (1000,.25), (8191,0)])
+		a = Osc(table=t, freq=1/duration, mul=.25)
+		env = Adsr(attack=duration/10.0, decay=duration/5.0, sustain=0.8, release=0.2, dur=duration, mul=a)
 		sin = Sine(freq=[f,f], mul=env).out()
 		env.play()
 		time.sleep(duration)
